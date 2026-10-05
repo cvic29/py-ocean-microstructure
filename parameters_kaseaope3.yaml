@@ -1,0 +1,122 @@
+# CV 2025/08/22 : contains all parameters for processing at different levels (L2, L3, L4)   
+#                 this follows recommendations in Fer et al. (2024) 
+
+# ------------------------------------------------------------------------------ 
+# ------ User defined baseline parameters  
+# ------------------------------------------------------------------------------ 
+param_file_name: parameters_kaseaope3.yaml        # this file's name
+file_nc: ../DATA/VMP/STY3/VMP_001_Profile1.nc     # placeholder 
+chatty: 1           # if 1, print some processing steps   
+superchatty: 0      # if 1, print even more processing steps   
+
+# ------------------------------------------------------------------------------ 
+# ------ Global attributes : required metadata, Table 7 in Fer et al. (2024) 
+# ------------------------------------------------------------------------------ 
+
+title: 'microstructure data collected by a VMP 250 south of New Caledonia during the
+  KASEAOPE-3 cruise (leg 2, 3rd Nov 2025 to 14th Nov 2025) and as part of the ScInObs
+  project (Ifremer)'
+authors: 'Clément Vic'
+summary: 'This is a profile collected using a tethered free-fall vertical microstructure
+  profiler (VMP). Data was processed following the ATOMIX group recommendations (Lueck
+  et al., 2024, Frontiers in Marine Science). I used Zissou Premium software to extract
+  L1 data and then I used my own Python-based code to process from L2 to L4.'
+comment: 'The netCDF file includes four hierarchical groups, corresponding to the
+  four levels of microstructure data in the ATOMIX format. L1_converted : time series
+  from all sensors converted into physical units L2_cleaned : selected signals that
+  are filtered and/or despiked before spectral analysis. Time stamp and length of
+  the signals are the same as in L1. L3_spectra : wavenumber spectra from shear probes
+  and vibration sensors L4_dissipation: dissipation estimates together with quality
+  control parameters L2_cleaned time series used for spectral analysis are marked
+  with section numbers. A section (a more general term for a profile) is a continuous
+  segment of the time series with dissipation estimates.'
+platform: 'research vessel'
+source: 'vertical microstructure profiler, VMP 250, belonging to CNRS DT-INSU, operated
+  by Arnaud Le Ridant'
+date_created: 2026-01-13
+date_modified: 2026-01-13
+time_reference_year: 2025      # this should be read somewhere ?      
+time_coverage_start: 2025-11-03
+time_coverage_end: 2025-11-14
+geospatial_lat_min: -24
+geospatial_lat_max: -22
+geospatial_lon_min: 167
+geospatial_lon_max: 169
+fs_fast: 1024
+fs_slow: 128
+profiling_direction: vertical
+fft_length: 2048
+diss_length: 8192
+overlap: 4096
+goodman: 1.
+HP_cut: 0.25                   # [Hz] high-pass filtering after despiking  
+conventions: ATOMIX
+history: Version 1
+
+# ------------------------------------------------------------------------------ 
+# ------ Global attributes : optional metadata, Table 8 in Fer et al. (2024) 
+# ------------------------------------------------------------------------------ 
+
+fft_length_sec: 2.
+diss_length_sec: 8.
+overlap_sec: 4.
+f_AA: 196.             # [Hz] anti-aliasing frequency cutoff (proposed in Zissou Premium)  
+FOM_limit: 1.4
+diss_ratio_limit: 2.77
+despike_shear_fraction_limit: 0.05
+despike_shear_iterations_limit: 8.
+variance_resolved_limit: 0.6
+f_limit: .inf          # = float('inf') in Python 
+fit_2_isr: 2e-05
+spectral_model: Lueck
+area: near New Caledonia, southwest Pacific
+geospatial_vertical_min: 0
+geospatial_vertical_max: 1200
+geospatial_vertical_positive: up
+institution: Ifremer
+principal_investigator: Karine Olu
+contact: karine.olu@ifremer.fr
+project: ScInObs
+cruise: KASEAOPE-3 Leg 2
+vessel: R/V Antea
+references: not available yet
+keywords: internal tides, mixing
+creator_namee: Clément Vic
+creator_email: clement.vic@ifremer.fr
+creator_url: none
+acknowledgement: We thank Ifremer for funding the research program ScInObs
+station_name: KASEAOPE_1
+license: http://creativecommons.org/licenses/by/4.0/
+
+# ------------------------------------------------------------------------------ 
+# ------ Other processing parameters
+# ------------------------------------------------------------------------------ 
+
+vehicle: vmp
+profile_dir: down              # 'down', 'up' or 'both' 
+profile_min_W: 0.4             # [m/s] minimum profiling speed
+profile_min_duration: 180.     # [s] minimum duration of cast 
+profile_min_P: 10.             # [dbar] Lueck et al 2024 recommends at least 1.5 times the ship's draft 
+despike_sh: [8., 0.5, 0.04]              # parameters for despiking shear data:  
+                                         # [no unit] absolute to smooth ratio threshold to consider a spike 
+                                         # [Hz] low-pass cutoff frequency for the despiking algorithm (recommended 0.25 to 2 Hz)
+                                         # [sec] duration of data replaced after the spike (before the spike will be half this value)
+despike_A: [8., 0.5, 0.04]               # parameters for despiking acceleration data 
+
+num_vibration_goodman: 3.
+
+fit_order: 3
+
+# ------------------------------------------------------------------------------ 
+# ------ Compute temperature variance dissipation (Bieito's code) 
+# ------------------------------------------------------------------------------ 
+
+compute_chi: 1
+fit_noise_model: 0 # fit a noise model to temperature gradient spectrum 
+
+
+# ------------------------------------------------------------------------------ 
+# ------ Computed parameters that will be added on the way 
+# ------------------------------------------------------------------------------ 
+n_good_data: 352254
+n_estimates: 84
