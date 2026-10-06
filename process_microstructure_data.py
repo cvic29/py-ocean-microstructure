@@ -5,6 +5,8 @@ CV 2025/10/05 : compute the rate of energy dissipation from microstructure shear
                 --> edit parameters.yaml to use the parameters you want. 
                 Note : when param.chatty (sometimes param.superchatty), 
                        'x.y.z' correspond to section x.y.z in Lueck et al. (2024) 
+
+contact : clement.vic@ifremer.fr 
 '''
 import numpy as np
 from netCDF4 import Dataset
